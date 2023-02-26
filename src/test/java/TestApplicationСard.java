@@ -7,26 +7,22 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 
+
 public class TestApplicationСard {
 
-    static WebDriver driver;
+    private WebDriver driver;
 
 
     @BeforeAll
     static void setUpAll() {
-        WebDriverManager.chromedriver().setup();
-        //System.setProperties("webdriver.chrome.driver" "./driver/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "./driver/chromedriver.exe");
 
     }
 
+   
     @BeforeEach
     void setUp() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--headless");
-        driver = new ChromeDriver(options);
-
+        driver = new ChromeDriver();
     }
 
     @AfterEach
@@ -41,10 +37,12 @@ public class TestApplicationСard {
        driver.get("http://localhost:9999/");
        driver.findElement(By.cssSelector("input[name ='name']")).sendKeys("Сергей Роликов");
        driver.findElement(By.cssSelector("input[name ='phone']")).sendKeys("+79991112233");
-       driver.findElement(By.className("Checkbox")).click();
+       driver.findElement(By.tagName("label")).click();
        driver.findElement(By.className("button")).click();
-       String expected = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
-       String actual = driver.findElement(By.className("order-success")). getText();
+
+       String expected = "  Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
+       String actual = driver.findElement(By.className("Success_successBlock__2L3Cw")). getText();
+
 
        Assertions.assertEquals(expected, actual);
 
