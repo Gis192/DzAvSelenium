@@ -1,10 +1,10 @@
 import org.junit.jupiter.api.BeforeAll;
-import io.github.bonigarcia.wdm.WebDriverManager;
+
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+
 
 
 
@@ -19,7 +19,7 @@ public class TestApplicationСard {
 
     }
 
-   
+
     @BeforeEach
     void setUp() {
         driver = new ChromeDriver();
@@ -45,7 +45,6 @@ public class TestApplicationСard {
 
 
        Assertions.assertEquals(expected, actual);
-
 
     }
 
