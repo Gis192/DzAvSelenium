@@ -11,25 +11,25 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class TestApplicationСard {
 
-    public WebDriver driver;
+    private WebDriver driver;
 
 
     @BeforeAll
     static void setUpAll() {
-        //WebDriverManager.chromedriver().setup();
-        System.setProperty("webdriver.chrome.driver", "./driver/chromedriver.exe");
+        WebDriverManager.chromedriver().setup();
+        //System.setProperty("webdriver.chrome.driver", "./driver/win/chromedriver.exe");
 
     }
 
 
     @BeforeEach
     void setUp() {
-        driver = new ChromeDriver();
-        /*ChromeOptions options = new ChromeOptions();
+        //driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--no-sandbox");
         options.addArguments("--headless");
-        driver = new ChromeDriver(options);*/
+        driver = new ChromeDriver(options);
     }
 
     @AfterEach
