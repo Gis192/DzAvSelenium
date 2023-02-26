@@ -1,20 +1,22 @@
 import org.junit.jupiter.api.BeforeAll;
-
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 
 
 
 public class TestApplicationСard {
 
-    private WebDriver driver;
+    public WebDriver driver;
 
 
     @BeforeAll
     static void setUpAll() {
+        //WebDriverManager.chromedriver().setup();
         System.setProperty("webdriver.chrome.driver", "./driver/chromedriver.exe");
 
     }
@@ -23,6 +25,11 @@ public class TestApplicationСard {
     @BeforeEach
     void setUp() {
         driver = new ChromeDriver();
+        /*ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--headless");
+        driver = new ChromeDriver(options);*/
     }
 
     @AfterEach
