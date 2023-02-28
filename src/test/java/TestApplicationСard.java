@@ -17,14 +17,12 @@ public class TestApplicationСard {
     @BeforeAll
     static void setUpAll() {
         WebDriverManager.chromedriver().setup();
-        //System.setProperty("webdriver.chrome.driver", "./driver/win/chromedriver.exe");
 
     }
 
 
     @BeforeEach
     void setUp() {
-        //driver = new ChromeDriver();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--no-sandbox");
@@ -48,7 +46,7 @@ public class TestApplicationСard {
         driver.findElement(By.className("button")).click();
 
         String expected = "  Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
-        String actual = driver.findElement(By.className("Success_successBlock__2L3Cw")).getText();
+        String actual = driver.findElement(By.cssSelector("[data-test-id='order-success']")).getText();
 
 
         Assertions.assertEquals(expected, actual);
@@ -64,7 +62,7 @@ public class TestApplicationСard {
         driver.findElement(By.className("button")).click();
 
         String expected = "Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.";
-        String actual = driver.findElement(By.className("input__sub")).getText();
+        String actual = driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).getText();
 
         Assertions.assertEquals(expected, actual);
     }
@@ -77,8 +75,8 @@ public class TestApplicationСard {
         driver.findElement(By.tagName("label")).click();
         driver.findElement(By.className("button")).click();
 
-        String expected = "Мобильный телефон\nТелефон указан неверно. Должно быть 11 цифр, например, +79012345678.";
-        String actual = driver.findElement(By.cssSelector("[data-test-id='phone']")).getText();
+        String expected = "Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.";
+        String actual = driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub")).getText();
 
         Assertions.assertEquals(expected, actual);
     }
@@ -96,5 +94,16 @@ public class TestApplicationСard {
 
         Assertions.assertEquals(expected, actual);
 
+    }
+
+    @Test
+    void emptyForm() {
+        driver.get("http://localhost:9999/");
+        driver.findElement(By.className("button")).click();
+
+        String expected = "Поле обязательно для заполнения";
+        String actual = driver.findElement(By.cssSelector("[data-test-id='name'] .input__sub")).getText();
+
+        Assertions.assertEquals(expected, actual);
     }
 }
