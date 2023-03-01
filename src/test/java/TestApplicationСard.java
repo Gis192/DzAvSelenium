@@ -90,19 +90,33 @@ public class TestApplicationСard {
 
 
         String expected = "Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй";
-        String actual = driver.findElement(By.className("checkbox__text")).getText();
+        String actual = driver.findElement(By.cssSelector("[data-test-id='agreement'].input_invalid .checkbox__text")).getText();
 
         Assertions.assertEquals(expected, actual);
 
     }
 
     @Test
-    void emptyForm() {
+    void emptyFormName() {
         driver.get("http://localhost:9999/");
+        driver.findElement(By.cssSelector("input[name ='phone']")).sendKeys("+79991112233");
+        driver.findElement(By.tagName("label")).click();
         driver.findElement(By.className("button")).click();
 
         String expected = "Поле обязательно для заполнения";
         String actual = driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).getText();
+
+        Assertions.assertEquals(expected, actual);
+    }
+    @Test
+    void emptyFormPhone() {
+        driver.get("http://localhost:9999/");
+        driver.findElement(By.cssSelector("input[name ='name']")).sendKeys("Сергей Роликов");
+        driver.findElement(By.tagName("label")).click();
+        driver.findElement(By.className("button")).click();
+
+        String expected = "Поле обязательно для заполнения";
+        String actual = driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub")).getText();
 
         Assertions.assertEquals(expected, actual);
     }
